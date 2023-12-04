@@ -1,0 +1,53 @@
+
+  <head>Authorize Application</head>
+  
+    <h1> Authorize #{application_name}</h1>
+    <p>Note: At this point the user has already been logged-in.</p>
+    <p>.This application would like to have authorization to access your data.</p>
+    
+    <!-- <form action="/authorize", method="POST">
+      <input type="hidden" name="client_id"
+      value="client_id"> 
+  <input type="hidden" name="password" 
+      placeholder="password"> 
+    <button>Authorize</button>
+  </form> -->
+  <button class="btn btn-primary navbar-btn ml8" 
+  onclick="redirectURL('/Configuration/AddConfiguration' {program:'${param.program}', marketplace:'${param.marketplace}'})">
+  Add Configuration
+</button>
+
+function redirectURL(pageURL, queryParams) {
+  let query = Object.keys(queryParams).map(key => 
+      `${key}=${encodeURIComponent(queryParams[key])}`).join('&');
+  window.location.href = pageURL+'?'+query;
+};
+  <!-- if scope
+      ul
+        each val in scope.split(" ")
+          if SCOPE_DESCRIPTIONS[val.trim()]
+            li= val.trim() + " - " + SCOPE_DESCRIPTIONS[val.trim()]
+
+    form(name="authorize", action="/authorize", method="post")
+      input(type="hidden", name="client_id", value=client_id)
+      input(type="hidden", name="response_type", value=response_type)
+      input(type="hidden", name="scope", value=scope)
+      input(type="submit", value="Authorize")
+
+
+      // login.ejs 
+      <h1>login</h1> 
+        
+      <form action="/login" method="POST"> 
+          <input type="text" name="username"
+              placeholder="username"> 
+          <input type="password" name="password" 
+              placeholder="password"> 
+          <button>login</button> 
+      </form> 
+        
+      <h1>This is home page</h1> 
+        
+      <li><a href="/register">Sign up!!</a></li> 
+      <li><a href="/login">Login</a></li> 
+      <li><a href="/logout">Logout</a></li>  -->

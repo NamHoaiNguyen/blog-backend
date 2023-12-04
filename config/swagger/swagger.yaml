@@ -1,0 +1,143 @@
+swagger: "2.0"
+info:
+  title: Backend List APIs
+  description: API description in Markdown.
+  version: 1.0.0
+host: 127.0.0.1:3301
+
+schemes:
+  - https
+  - http
+
+paths:
+  /account/login:
+    get:
+      summary: Login page.
+      description: Returns login page.
+      produces:
+        - application/html
+        # - application/json
+      responses:
+        200:
+          description: A login html form.
+          # schema:
+          #   $ref: '#/components/schemas/User'
+        404:
+          description: Error page not found.
+
+    post:
+      summary: Login account with crendential.
+      description: Login with blog/third-party account.
+      produces:
+        - application/html
+        
+      parameters:
+        - in: body
+          name: User credential
+          description: Email and password of user.
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+
+      responses:
+        200:
+          description: Return authorization page.
+        401:
+          description: Invalid username or password.
+  
+  /account/authorization:
+    get:
+      summary: Authorization page.
+      description: Return authorization page to let user confirm.
+      produces:
+        - application/html
+      parameters:
+        - in: query
+          name: response_type
+          description: response_type Oauth2 authentication Kong.
+          schema:
+            type: string
+        - in: query
+          name: scope
+          description: scope of Oauth2 token.
+          schema:
+            type: string
+        - in: query
+          name: client_id
+          description: client_id of client Oauth2.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return authorization page.
+        401:
+          description: Invalid client id.  
+
+    post:
+      summary: Get oauth2 tokens.
+      description: Return access token and refresh token.
+      produces:
+        - application/json
+      # parameters:
+      #   - in: query
+      #     name: response_type
+      #     description: response_type Oauth2 authentication Kong.
+      #     schema:
+      #       type: string
+      #   - in: query
+      #     name: scope
+      #     description: scope of Oauth2 token.
+      #     schema:
+      #       type: string
+      #   - in: query
+      #     name: client_id
+      #     description: client_id of client Oauth2.
+      #     schema:
+      #       type: string
+      parameters:
+        - in: body
+          name: User credential
+          description: Email and password of user.
+          schema:
+            type: object
+            required:
+              - client_id
+              - response_type
+              - scope
+            properties:
+              client_id:
+                type: string
+              response_type:
+                type: string
+              scope:
+                type: string
+      responses:
+        200:
+          description: Return access token and refresh token
+        401:
+          description: Invalid client id.
+  
+  /oauth2/tokens:
+    get:
+      summary: Returns tokens to client
+      description: Return access token and refresh tokent to client.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: authorization_code
+          description: authorization code.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return authorization page.
+        401:
+          description: Invalid client id.
