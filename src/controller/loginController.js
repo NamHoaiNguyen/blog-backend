@@ -93,18 +93,16 @@ async function authorizePostAPI(req, res) {
   return getAuthorizationCode(req.body.client_id, req.body.response_type, req.body.scope)
     .then((response) => {
       if (!response.ok) {
-        res.status(400).json({message : "Error when getting auth code"})
-        throw new Error("HTTP status " + response.status);
+        return res.status(400).json({message : "Error when getting auth code"})
       }
 
-      return response.json();
-    })
-    .then((response) => {
-      const url = new URL(response.redirect_uri)
-      const urlParams = new URLSearchParams(url.search);
-      const code = urlParams.get("code");
+      return response.json().then((response) => {
+        const url = new URL(response.redirect_uri)
+        const urlParams = new URLSearchParams(url.search);
+        const code = urlParams.get("code");
 
-      res.redirect('/oauth2/tokens/?code=' + code)
+        res.redirect('/oauth2/tokens/?code=' + code)
+      })
     })
 }
 
