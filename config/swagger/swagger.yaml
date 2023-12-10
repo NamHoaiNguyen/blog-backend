@@ -123,21 +123,3 @@ paths:
           description: Return access token and refresh token
         401:
           description: Invalid client id.
-  
-  /oauth2/tokens:
-    get:
-      summary: Returns tokens to client
-      description: Return access token and refresh tokent to client.
-      produces:
-        - application/json
-      parameters:
-        - in: query
-          name: authorization_code
-          description: authorization code.
-          schema:
-            type: string
-      responses:
-        200:
-          description: Return authorization page.
-        401:
-          description: Invalid client id.

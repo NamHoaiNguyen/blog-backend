@@ -5,7 +5,6 @@ import express from 'express'
 import fs from 'fs'
 import https from 'https'
 import swaggerUI from 'swagger-ui-express'
-import swaggerJsDoc from 'swagger-jsdoc'
 import yaml from 'yaml'
 
 import { route } from './routes/routes.js'
@@ -28,32 +27,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const LISTEN_PORT = 3301
 
-// const options = {
-// 	definition: {
-// 		openapi: "3.0.0",
-// 		info: {
-// 			title: "Library API",
-// 			version: "1.0.0",
-// 			description: "A simple Express Library API",
-// 		},
-// 		servers: [
-// 			{
-// 				url: "https://localhost:3301",
-// 			},
-// 		],
-// 	},
-// 	apis: [
-//     "/home/node/src/routes/routes.js", 
-//     "/home/node/src/routes/login/loginRoute.js"],
-// };
+app.use('/api/documentations', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-// const specs = swaggerJsDoc(options);
-
-// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-
-
-// TODO(namnh2): fake api of account service.
+// TODO(namnh2): fake api of account service to verify account is created or not.
 app.post('/testlogin', (req, res) => {
   const email = req.body.email
   const password = req.body.password 
@@ -65,6 +41,19 @@ app.post('/testlogin', (req, res) => {
   }
 
   return res.status(401).json({message: "Authorization failed. Relogin!!!"})
+})
+
+
+// TODO(namnh2): fake an api need authorization to test
+app.get('/testaccservice', (req, res) => {
+  console.log("This API is used to test oauth2 kong");
+  res.status(200).json({message: "Account service Access successed!!!"})
+})
+
+// TODO(namnh2): fake an api need authorization to test
+app.get('/testpostservice', (req, res) => {
+  console.log("This API belonging to post servicef is used to test oauth2 kong");
+  res.status(200).json({message: "Post service Access successed!!!"})
 })
 
 // Index page

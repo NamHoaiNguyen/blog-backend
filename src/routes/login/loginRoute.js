@@ -1,22 +1,21 @@
 import express from "express"
 
 import { 
-  authorizeGetAPI,
+  showAuthorizePage,
   authorizePostAPI, 
-  loginGetAPI, 
-  loginPostAPI,
-  oauth2GetTokens } from "../../controller/loginController.js"
+  showLoginPage, 
+  loginByNativeAccount} 
+  from "../../app/login/native-account/api/loginController.js"
 
 export const loginRouter = express.Router()
 
-loginRouter.get('/account/authorization', authorizeGetAPI)
+// APIs for authorization flow
+loginRouter.get('/account/authorization', showAuthorizePage)
 
 loginRouter.post('/account/authorization', authorizePostAPI)
 
-loginRouter.get('/account/login', loginGetAPI)
+// (end) APIs for authorization flow.
 
-loginRouter.post('/account/login', loginPostAPI)
+loginRouter.get('/account/login', showLoginPage)
 
-// TODO(namnh): This api should be POST method.
-// Temporarily set it to GET to debug.
-loginRouter.get('/oauth2/tokens', oauth2GetTokens)
+loginRouter.post('/account/login', loginByNativeAccount)
