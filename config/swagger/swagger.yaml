@@ -9,11 +9,21 @@ schemes:
   - https
   - http
 
+tags: [
+  {
+    "name" : "Login APIs",
+    "description" : "APIs relevant to login flow."
+  }
+]
+
 paths:
   /account/login:
     get:
       summary: Login page.
       description: Returns login page.
+      tags: [
+        "Login APIs"
+      ]
       produces:
         - application/html
         # - application/json
@@ -28,6 +38,9 @@ paths:
     post:
       summary: Login account with crendential.
       description: Login with blog/third-party account.
+      tags: [
+        "Login APIs"
+      ]
       produces:
         - application/html
         
@@ -56,6 +69,9 @@ paths:
     get:
       summary: Authorization page.
       description: Return authorization page to let user confirm.
+      tags: [
+        "Login APIs"
+      ]
       produces:
         - application/html
       parameters:
@@ -83,6 +99,9 @@ paths:
     post:
       summary: Get oauth2 tokens.
       description: Return access token and refresh token.
+      tags: [
+        "Login APIs"
+      ]
       produces:
         - application/json
       # parameters:
