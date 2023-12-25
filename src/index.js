@@ -46,13 +46,13 @@ app.post('/testlogin', (req, res) => {
 
 // TODO(namnh2): fake an api need authorization to test
 app.get('/testaccservice', (req, res) => {
-  console.log("This API is used to test oauth2 kong");
+  console.log("DLOG check http header", req.headers);
   res.status(200).json({message: "Account service Access successed!!!"})
 })
 
 // TODO(namnh2): fake an api need authorization to test
 app.get('/testpostservice', (req, res) => {
-  console.log("This API belonging to post servicef is used to test oauth2 kong");
+  console.log("DLOG check http header", req.headers);
   res.status(200).json({message: "Post service Access successed!!!"})
 })
 

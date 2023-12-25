@@ -31,8 +31,9 @@ async function getAuthorizationCode(response_type, scope) {
     client_id: process.env.CLIENT_ID,
     response_type: response_type,
     scope: scope,
+    // namnh2 Apply global_credentials. So any provision_key is not matter ? Really ?
     provision_key: process.env.PROVISION_KEY_LOGIN_PATH,
-    authenticated_userid: "authenticated_tester", // Hard-coding this value (it should be the logged-in user ID)
+    authenticated_userid: "authenticated_tester", // Hard-coding this value (it should be the logged-in user ID provided by third-party)
     redirect_url: "https://127.0.0.1:3301/callbacks",
   });
 
@@ -67,6 +68,11 @@ async function execClientCredentialFlow(scope, kong_route_path) {
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     scope: scope,
+    // namnh2: We use authenticated_userid as external user id of account.
+    // This is id returned by api of account service.
+    authenticated_userid: "comkfas8t4itjgrgifnh",
+    // namnh2 Apply global_credentials. So any provision_key is not matter ? Really ?
+    provision_key: process.env.PROVISION_KEY_LOGIN_PATH,
   });
 
   return getHttpResponse(request_body, token_endpoint, "POST")

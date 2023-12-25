@@ -13,7 +13,6 @@ export const loginRouter = express.Router()
 loginRouter.get('/account/authorization', showAuthorizePage)
 
 loginRouter.post('/account/authorization', authorizePostAPI)
-
 // (end) APIs for authorization flow.
 
 loginRouter.get('/account/login', showLoginPage)
